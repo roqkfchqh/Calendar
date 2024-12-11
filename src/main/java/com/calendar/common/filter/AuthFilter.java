@@ -1,5 +1,6 @@
 package com.calendar.common.filter;
 
+import com.calendar.controller.user.dto.UserResponseDto;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +21,7 @@ public class AuthFilter implements Filter {
             return;
         }
 
-        Object user = req.getSession().getAttribute("user");
+        UserResponseDto user = (UserResponseDto) req.getSession().getAttribute("user");
         if(user == null){
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;

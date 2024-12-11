@@ -22,4 +22,16 @@ public class UserValidationService {
         return userRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new BadInputException("해당 유저를 찾을 수 없습니다."));
     }
+
+    public void isEmailTaken(String email){
+        if(userRepository.findByEmail(email).isPresent()){
+            throw new BadInputException("이미 사용중인 이메일입니다.");
+        }
+    }
+
+    public void isUsernameTaken(String username){
+        if(userRepository.findByName(username).isPresent()){
+            throw new BadInputException("이미 사용중인 닉네임입니다.");
+        }
+    }
 }

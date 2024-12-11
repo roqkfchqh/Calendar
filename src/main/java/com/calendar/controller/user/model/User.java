@@ -20,7 +20,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false, unique = true)
@@ -31,4 +31,14 @@ public class User {
 
     @CreatedDate
     private LocalDateTime createdAt;
+
+    public User updateUser(String name, String password){
+        if(name != null){
+            this.name = name;
+        }
+        if(password != null){
+            this.password = password;
+        }
+        return this;
+    }
 }
