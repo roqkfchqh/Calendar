@@ -26,11 +26,11 @@ public class Calendar {
     private String title;
 
     @Column(nullable = false)
-    private String description;
+    private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId", nullable = false)
-    private User userId;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @CreatedDate
     private LocalDateTime created;

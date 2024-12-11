@@ -10,7 +10,7 @@ public class UserMapper {
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
-                .createdAt(String.valueOf(user.getCreatedAt()))
+                .createdAt(user.getCreatedAt().toString())
                 .build();
     }
 
