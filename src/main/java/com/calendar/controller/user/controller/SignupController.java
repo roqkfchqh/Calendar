@@ -24,7 +24,7 @@ public class SignupController {
             HttpServletResponse res) {
         UserResponseDto user = userSignupService.registerUser(dto);
 
-        SessionAndCookie.extracted(req, res, user);
+        SessionAndCookie.remember(req, res, user);
 
         return ResponseEntity.ok("회원가입 완료");
     }

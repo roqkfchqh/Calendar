@@ -5,7 +5,6 @@ import com.calendar.controller.user.dto.*;
 import com.calendar.controller.user.model.User;
 import com.calendar.controller.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,25 +15,35 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserValidationService userValidationService;
 
+    //read
     public UserResponseDto readUser(HttpServletRequest req){
         User user = userValidationService.validateUser(req);
         return UserMapper.toDto(user);
     }
 
-    public UserResponseDto updateUser(UpdateRequestDto dto, HttpServletRequest req){
+    //update
+    public UserResponseDto updateUser(
+            UpdateRequestDto dto,
+            CurrentPasswordRequestDto currentPasswordRequestDto,
+            HttpServletRequest req){
+
         User user = userValidationService.validateUser(req);
         userValidationService.isUsernameTaken(dto.getName());
+        userValidationService.validatePassword(req, currentPasswordRequestDto.getCurrentPassword());
 
-        User updatedUser = user.updateUser(dto.getName(), dto.getPassword());
+        User updatedUser = user.updateUser(dto.getName(), dto.getUpdatePassword());
         userRepository.save(updatedUser);
         return UserMapper.toDto(updatedUser);
     }
 
-    public void deleteUser(HttpServletRequest req){
+    //delete
+    public void deleteUser(HttpServletRequest req, CurrentPasswordRequestDto currentPasswordRequestDto){
         User user = userValidationService.validateUser(req);
+        userValidationService.validatePassword(req, currentPasswordRequestDto.getCurrentPassword());
         userRepository.deleteById(user.getId());
     }
 
+    //get(for cookie)
     public UserResponseDto getUserByEmail(String email){
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new BadInputException("존재하지 않는 사용자입니다."));

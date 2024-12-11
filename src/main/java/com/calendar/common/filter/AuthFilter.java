@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -49,6 +50,6 @@ public class AuthFilter implements Filter {
             return;
         }
 
-        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        res.setStatus(HttpStatusCode.valueOf(401).value());
     }
 }

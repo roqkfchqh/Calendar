@@ -26,5 +26,5 @@ public class UpdateRequestDto {
             regexp = PATTERN,
             message = "비밀번호는 영대문자와 특수문자를 한 개 이상 포함하며, 영소문자와 숫자로만 구성 가능합니다."
     )
-    private String password;
+    private String updatePassword;
 }

@@ -1,5 +1,6 @@
 package com.calendar.controller.user.controller;
 
+import com.calendar.controller.user.dto.CurrentPasswordRequestDto;
 import com.calendar.controller.user.dto.UpdateRequestDto;
 import com.calendar.controller.user.dto.UserResponseDto;
 import com.calendar.controller.user.service.UserService;
@@ -28,19 +29,23 @@ public class UserController {
     @PatchMapping
     public ResponseEntity<UserResponseDto> updateUser(
             @Valid @RequestBody UpdateRequestDto dto,
+            @RequestHeader CurrentPasswordRequestDto currentPasswordRequestDto,
             HttpServletRequest req,
             HttpServletResponse res){
-        UserResponseDto user = userService.updateUser(dto, req);
-        SessionAndCookie.extracted(req, res, user);
+        UserResponseDto user = userService.updateUser(dto, currentPasswordRequestDto, req);
+        SessionAndCookie.remember(req, res, user);
         return ResponseEntity.ok(user);
     }
 
     //delete
-    @DeleteMapping
+    @PostMapping("/delete")
     public ResponseEntity<UserResponseDto> deleteUser(
-            HttpServletRequest req){
-        userService.deleteUser(req);
+            @RequestBody CurrentPasswordRequestDto currentPasswordRequestDto,
+            HttpServletRequest req,
+            HttpServletResponse res){
+        userService.deleteUser(req, currentPasswordRequestDto);
         req.getSession().invalidate();
+        SessionAndCookie.delete(req, res);
         return ResponseEntity.noContent().build();
     }
 

@@ -23,7 +23,7 @@ public class LoginController {
             HttpServletResponse res){
         UserResponseDto user = userLoginService.loginUser(dto);
         if(user != null) {
-            SessionAndCookie.extracted(req, res, user);
+            SessionAndCookie.remember(req, res, user);
 
             return ResponseEntity.ok("로그인 완료");
         }else{
@@ -32,8 +32,12 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest req){
-        req.getSession().invalidate();
+    public ResponseEntity<String> logout(
+            HttpServletRequest req,
+            HttpServletResponse res){
+        SessionAndCookie.delete(req, res);
         return ResponseEntity.ok("로그아웃 완료");
     }
+
+
 }
