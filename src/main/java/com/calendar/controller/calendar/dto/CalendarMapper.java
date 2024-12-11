@@ -11,6 +11,7 @@ public class CalendarMapper {
                 .id(calendar.getId())
                 .title(calendar.getTitle())
                 .content(calendar.getContent())
+                .name(calendar.getUser().getName())
                 .created(calendar.getCreated().toString())
                 .updated(calendar.getUpdated().toString())
                 .build();

@@ -1,7 +1,6 @@
 package com.calendar.controller.calendar.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,9 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CalendarRequestDto {
-
-    @NotNull(message = "올바른 접근이 아닙니다.")
-    private Long userId;
 
     @NotBlank(message = "제목을 입력해주세요.")
     @Size(min = 2, max = 20, message = "제목은 2자 이상 20자 이하로만 입력 가능합니다.")
