@@ -6,6 +6,7 @@ import com.calendar.controller.user.model.User;
 import com.calendar.controller.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserValidationService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public User validateUser(HttpServletRequest req) {
         User sessionUser = (User) req.getSession().getAttribute("user");
@@ -27,7 +29,7 @@ public class UserValidationService {
     }
 
     public void validatePassword(String sessionPassword, String inputPassword){
-        if(!sessionPassword.equals(inputPassword)){
+        if(!sessionPassword.equals(passwordEncoder.encode(inputPassword))){
             throw new CustomException(ErrorCode.WRONG_PASSWORD);
         }
     }
