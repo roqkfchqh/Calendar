@@ -13,11 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CalendarRequestDto {
 
-    @NotBlank(message = "제목을 입력해주세요.")
     @Size(min = 2, max = 20, message = "제목은 2자 이상 20자 이하로만 입력 가능합니다.")
     private String title;
 
-    @NotBlank(message = "내용을 입력해주세요.")
     @Size(min = 10, max = 300, message = "내용은 10자 이상 300자 이하로만 입력 가능합니다.")
     private String content;
 }

@@ -39,7 +39,11 @@ public class Calendar {
     private LocalDateTime updated;
 
     public void updateCalendar(String title, String content){
-        this.title = title;
-        this.content = content;
+        if(title != null){
+            this.title = title;
+        }
+        if(content != null){
+            this.content = content;
+        }
     }
 }
