@@ -1,5 +1,6 @@
-package com.calendar.controller.user;
+package com.calendar.controller.user.repository;
 
+import com.calendar.controller.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
-package com.calendar.controller.calendar;
+package com.calendar.controller.calendar.service;
 
+import com.calendar.controller.calendar.repository.CalendarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

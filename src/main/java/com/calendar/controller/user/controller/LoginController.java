@@ -1,13 +1,13 @@
-package com.calendar.controller.user;
+package com.calendar.controller.user.controller;
 
+import com.calendar.controller.user.dto.LoginRequestDto;
+import com.calendar.controller.user.model.User;
+import com.calendar.controller.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -18,11 +18,10 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(
-            @RequestParam String email,
-            @RequestParam String password,
+            @RequestBody LoginRequestDto loginRequestDto,
             HttpServletRequest request,
             HttpServletResponse response){
-        User user = userService.validateUser(email, password);
+        User user = userService.validateUser(loginRequestDto);
         if(user != null) {
             request.getSession().setAttribute("user", user);
             return ResponseEntity.ok("로그인 완료");

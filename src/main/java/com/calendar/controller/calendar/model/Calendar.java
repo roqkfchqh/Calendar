@@ -1,6 +1,6 @@
-package com.calendar.controller.calendar;
+package com.calendar.controller.calendar.model;
 
-import com.calendar.controller.user.User;
+import com.calendar.controller.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

@@ -1,4 +1,4 @@
-package com.calendar.controller.user;
+package com.calendar.controller.user.model;
 
 import jakarta.persistence.*;
 import lombok.*;
