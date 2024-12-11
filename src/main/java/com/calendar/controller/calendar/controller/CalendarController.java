@@ -30,7 +30,7 @@ public class CalendarController {
         return ResponseEntity.ok(calendarService.readCalendar(calendarId, req));
     }
 
-    @PostMapping("/{calendarId}")
+    @PatchMapping("/{calendarId}")
     public ResponseEntity<CalendarResponseDto> updateCalendar(
             @PathVariable Long calendarId,
             @Valid @RequestBody CalendarRequestDto dto,
