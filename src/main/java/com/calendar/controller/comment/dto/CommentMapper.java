@@ -18,7 +18,7 @@ public class CommentMapper {
     }
 
     //dto -> entity
-    public static Comment toEntity(CommentResponseDto dto, User user, Calendar calendar){
+    public static Comment toEntity(CommentRequestDto dto, User user, Calendar calendar){
         return Comment.builder()
                 .content(dto.getContent())
                 .user(user)

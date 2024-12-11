@@ -25,9 +25,8 @@ public class CalendarController {
 
     @GetMapping("/{calendarId}")
     public ResponseEntity<CalendarResponseDto> readCalendar(
-            @PathVariable Long calendarId,
-            HttpServletRequest req){
-        return ResponseEntity.ok(calendarService.readCalendar(calendarId, req));
+            @PathVariable Long calendarId){
+        return ResponseEntity.ok(calendarService.readCalendar(calendarId));
     }
 
     @PatchMapping("/{calendarId}")
