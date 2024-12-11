@@ -9,12 +9,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Objects;
 
-@Component
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class AuthFilter implements Filter {
@@ -25,6 +23,11 @@ public class AuthFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
+
+        if (req.getRequestURI().startsWith("/swagger-ui/") || req.getRequestURI().startsWith("/v3/api-docs/")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         UserResponseDto sessionUser = (UserResponseDto) req.getSession().getAttribute("user");
         if(sessionUser != null){
