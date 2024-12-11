@@ -36,16 +36,14 @@ public class CalendarService {
         return CalendarMapper.toDto(calendar);
     }
 
-
-
     public CalendarResponseDto updateCalendar(Long id, CalendarRequestDto dto, HttpServletRequest req){
         User user = userValidationService.validateUser(req);
         Calendar calendar = calendarValidationService.validateCalendar(id);
         CalendarValidationService.authorityExtracted(calendar, user);
 
-        calendar.updateCalendar(dto.getTitle(), dto.getContent());
-        calendarRepository.save(calendar);
-        return CalendarMapper.toDto(calendar);
+        Calendar updateCalendar = calendar.updateCalendar(dto.getTitle(), dto.getContent());
+        calendarRepository.save(updateCalendar);
+        return CalendarMapper.toDto(updateCalendar);
     }
 
     public void deleteCalendar(Long id, HttpServletRequest req){
