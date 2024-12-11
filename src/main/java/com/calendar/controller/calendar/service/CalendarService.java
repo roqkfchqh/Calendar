@@ -1,6 +1,5 @@
 package com.calendar.controller.calendar.service;
 
-import com.calendar.common.exception.BadInputException;
 import com.calendar.controller.calendar.dto.CalendarMapper;
 import com.calendar.controller.calendar.dto.CalendarRequestDto;
 import com.calendar.controller.calendar.dto.CalendarResponseDto;

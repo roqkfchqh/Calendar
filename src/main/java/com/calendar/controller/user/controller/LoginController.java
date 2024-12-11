@@ -1,5 +1,7 @@
 package com.calendar.controller.user.controller;
 
+import com.calendar.common.exception.CustomException;
+import com.calendar.common.exception.ErrorCode;
 import com.calendar.controller.user.dto.LoginRequestDto;
 import com.calendar.controller.user.model.User;
 import com.calendar.controller.user.service.UserLoginService;
@@ -27,7 +29,7 @@ public class LoginController {
 
             return ResponseEntity.ok("로그인 완료");
         }else{
-            return ResponseEntity.status(401).body("이메일이나 비밀번호가 유효하지 않습니다.");
+            throw new CustomException(ErrorCode.WRONG_EMAIL_OR_PASSWORD);
         }
     }
 
@@ -38,6 +40,4 @@ public class LoginController {
         SessionAndCookie.delete(req, res);
         return ResponseEntity.ok("로그아웃 완료");
     }
-
-
 }

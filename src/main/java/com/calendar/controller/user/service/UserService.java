@@ -1,6 +1,7 @@
 package com.calendar.controller.user.service;
 
-import com.calendar.common.exception.BadInputException;
+import com.calendar.common.exception.CustomException;
+import com.calendar.common.exception.ErrorCode;
 import com.calendar.controller.calendar.repository.CalendarRepository;
 import com.calendar.controller.user.dto.*;
 import com.calendar.controller.user.model.User;
@@ -49,6 +50,6 @@ public class UserService {
     //get(for cookie)
     public User getUserByEmail(String email){
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new BadInputException("존재하지 않는 사용자입니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
     }
 }
