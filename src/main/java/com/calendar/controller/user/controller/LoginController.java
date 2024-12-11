@@ -18,12 +18,12 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(
-            @RequestBody LoginRequestDto loginRequestDto,
-            HttpServletRequest request,
-            HttpServletResponse response){
-        User user = userService.validateUser(loginRequestDto);
+            @RequestBody LoginRequestDto dto,
+            HttpServletRequest req,
+            HttpServletResponse res){
+        User user = userService.validateUser(dto);
         if(user != null) {
-            request.getSession().setAttribute("user", user);
+            req.getSession().setAttribute("user", user);
             return ResponseEntity.ok("로그인 완료");
         }else{
             return ResponseEntity.status(401).body("이메일이나 비밀번호가 유효하지 않습니다.");
@@ -31,8 +31,8 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request){
-        request.getSession().invalidate();
+    public ResponseEntity<String> logout(HttpServletRequest req){
+        req.getSession().invalidate();
         return ResponseEntity.ok("로그아웃 완료");
     }
 }

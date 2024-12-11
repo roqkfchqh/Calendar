@@ -14,5 +14,12 @@ public class UserMapper {
                 .build();
     }
 
-    //loginDto -> entity
+    //signupDto -> entity
+    public static User toEntity(SignupRequestDto dto){
+        return User.builder()
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .build();
+    }
 }
