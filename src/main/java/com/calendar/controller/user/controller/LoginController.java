@@ -2,7 +2,6 @@ package com.calendar.controller.user.controller;
 
 import com.calendar.controller.user.dto.LoginRequestDto;
 import com.calendar.controller.user.dto.UserResponseDto;
-import com.calendar.controller.user.model.User;
 import com.calendar.controller.user.service.UserLoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,8 +23,8 @@ public class LoginController {
             HttpServletResponse res){
         UserResponseDto user = userLoginService.loginUser(dto);
         if(user != null) {
-            req.getSession().setAttribute("user", user);
-            req.getSession().setMaxInactiveInterval(1800);
+            SessionAndCookie.extracted(req, res, user);
+
             return ResponseEntity.ok("로그인 완료");
         }else{
             return ResponseEntity.status(401).body("이메일이나 비밀번호가 유효하지 않습니다.");

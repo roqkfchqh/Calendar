@@ -4,6 +4,7 @@ import com.calendar.controller.user.dto.UpdateRequestDto;
 import com.calendar.controller.user.dto.UserResponseDto;
 import com.calendar.controller.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +28,10 @@ public class UserController {
     @PatchMapping
     public ResponseEntity<UserResponseDto> updateUser(
             @Valid @RequestBody UpdateRequestDto dto,
-            HttpServletRequest req){
+            HttpServletRequest req,
+            HttpServletResponse res){
         UserResponseDto user = userService.updateUser(dto, req);
-        req.getSession().setAttribute("user", user);
-        req.getSession().setMaxInactiveInterval(1800);
+        SessionAndCookie.extracted(req, res, user);
         return ResponseEntity.ok(user);
     }
 
