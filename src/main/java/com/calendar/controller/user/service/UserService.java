@@ -24,14 +24,12 @@ public class UserService {
     //update
     public UserResponseDto updateUser(
             UpdateRequestDto dto,
-            CurrentPasswordRequestDto currentPasswordRequestDto,
             HttpServletRequest req){
 
         User user = userValidationService.validateUser(req);
-        userValidationService.isUsernameTaken(dto.getName());
-        userValidationService.validatePassword(req, currentPasswordRequestDto.getCurrentPassword());
+        userValidationService.validatePassword(user.getPassword(), dto.getCurrentPassword());
 
-        User updatedUser = user.updateUser(dto.getName(), dto.getUpdatePassword());
+        User updatedUser = user.updateUser(dto.getName(), dto.getNewPassword());
         userRepository.save(updatedUser);
         return UserMapper.toDto(updatedUser);
     }
@@ -39,7 +37,7 @@ public class UserService {
     //delete
     public void deleteUser(HttpServletRequest req, CurrentPasswordRequestDto currentPasswordRequestDto){
         User user = userValidationService.validateUser(req);
-        userValidationService.validatePassword(req, currentPasswordRequestDto.getCurrentPassword());
+        userValidationService.validatePassword(user.getPassword(), currentPasswordRequestDto.getCurrentPassword());
         userRepository.deleteById(user.getId());
     }
 

@@ -29,9 +29,8 @@ public class UserController {
     @PatchMapping
     public ResponseEntity<UserResponseDto> updateUser(
             @Valid @RequestBody UpdateRequestDto dto,
-            @RequestHeader CurrentPasswordRequestDto currentPasswordRequestDto,
             HttpServletRequest req){
-        UserResponseDto user = userService.updateUser(dto, currentPasswordRequestDto, req);
+        UserResponseDto user = userService.updateUser(dto, req);
         return ResponseEntity.ok(user);
     }
 
