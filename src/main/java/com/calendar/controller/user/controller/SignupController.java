@@ -1,7 +1,7 @@
 package com.calendar.controller.user.controller;
 
 import com.calendar.controller.user.dto.SignupRequestDto;
-import com.calendar.controller.user.dto.UserResponseDto;
+import com.calendar.controller.user.model.User;
 import com.calendar.controller.user.service.UserSignupService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,7 +22,7 @@ public class SignupController {
             @Valid @RequestBody SignupRequestDto dto,
             HttpServletRequest req,
             HttpServletResponse res) {
-        UserResponseDto user = userSignupService.registerUser(dto);
+        User user = userSignupService.registerUser(dto);
 
         SessionAndCookie.remember(req, res, user);
 

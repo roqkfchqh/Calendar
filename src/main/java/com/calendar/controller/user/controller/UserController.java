@@ -30,10 +30,8 @@ public class UserController {
     public ResponseEntity<UserResponseDto> updateUser(
             @Valid @RequestBody UpdateRequestDto dto,
             @RequestHeader CurrentPasswordRequestDto currentPasswordRequestDto,
-            HttpServletRequest req,
-            HttpServletResponse res){
+            HttpServletRequest req){
         UserResponseDto user = userService.updateUser(dto, currentPasswordRequestDto, req);
-        SessionAndCookie.remember(req, res, user);
         return ResponseEntity.ok(user);
     }
 

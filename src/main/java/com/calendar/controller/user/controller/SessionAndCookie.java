@@ -1,13 +1,13 @@
 package com.calendar.controller.user.controller;
 
-import com.calendar.controller.user.dto.UserResponseDto;
+import com.calendar.controller.user.model.User;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class SessionAndCookie {
 
-    public static void remember(HttpServletRequest req, HttpServletResponse res, UserResponseDto user) {
+    public static void remember(HttpServletRequest req, HttpServletResponse res, User user) {
         req.getSession().setAttribute("user", user);
         req.getSession().setMaxInactiveInterval(1800);
 

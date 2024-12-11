@@ -1,6 +1,6 @@
 package com.calendar.common.filter;
 
-import com.calendar.controller.user.dto.UserResponseDto;
+import com.calendar.controller.user.model.User;
 import com.calendar.controller.user.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
@@ -29,7 +29,7 @@ public class AuthFilter implements Filter {
             return;
         }
 
-        UserResponseDto sessionUser = (UserResponseDto) req.getSession().getAttribute("user");
+        User sessionUser = (User) req.getSession().getAttribute("user");
         if(sessionUser != null){
             chain.doFilter(request, response);
             return;
@@ -40,7 +40,7 @@ public class AuthFilter implements Filter {
             for(Cookie cookie : cookies){
                 if("rememberMe".equals(cookie.getName())){
                     String email = cookie.getValue();
-                    UserResponseDto user = Objects.requireNonNull(userService).getUserByEmail(email);
+                    User user = Objects.requireNonNull(userService).getUserByEmail(email);
                     if(user != null){
                         req.getSession().setAttribute("user", user);
                     }
