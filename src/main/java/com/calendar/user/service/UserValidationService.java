@@ -29,7 +29,7 @@ public class UserValidationService {
     }
 
     public void validatePassword(String sessionPassword, String inputPassword){
-        if(!passwordEncoder.matches(sessionPassword, inputPassword)){
+        if(!passwordEncoder.matches(inputPassword, sessionPassword)){
             throw new CustomException(ErrorCode.WRONG_PASSWORD);
         }
     }

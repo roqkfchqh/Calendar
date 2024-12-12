@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserLoginService {
@@ -19,11 +21,10 @@ public class UserLoginService {
 
     @Transactional(readOnly = true)
     public User loginUser(LoginRequestDto dto){
-        User user = userRepository.findByEmail(dto.getEmail())
-                .orElseThrow(() -> new CustomException(ErrorCode.WRONG_EMAIL_OR_PASSWORD));
-        if(!passwordEncoder.matches(user.getPassword(), dto.getPassword())){
+        Optional<User> user = userRepository.findByEmail(dto.getEmail());
+        if(user.isEmpty() || !passwordEncoder.matches(dto.getPassword(), user.get().getPassword())){
             throw new CustomException(ErrorCode.WRONG_EMAIL_OR_PASSWORD);
         }
-        return user;
+        return user.get();
     }
 }

@@ -37,6 +37,9 @@ public class LoginController {
     public ResponseEntity<String> logout(
             HttpServletRequest req,
             HttpServletResponse res){
+        if(req.getSession().getAttribute("user") == null){
+            throw new CustomException(ErrorCode.BAD_GATEWAY);
+        }
         SessionAndCookie.delete(req, res);
         return ResponseEntity.ok("로그아웃 완료");
     }
