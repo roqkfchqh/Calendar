@@ -63,6 +63,7 @@ public class CalendarService {
         Calendar calendar = calendarValidationService.validateCalendar(id);
         calendarValidationService.authorityExtracted(calendar, user);
 
+        commentRepository.deleteByCalendarId(id);
         calendarRepository.deleteById(id);
     }
 
