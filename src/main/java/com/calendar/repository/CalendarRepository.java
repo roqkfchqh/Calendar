@@ -17,7 +17,7 @@ public interface CalendarRepository extends JpaRepository<Calendar, Long> {
     @Query("DELETE FROM Calendar c WHERE c.user.id = :userId")
     void deleteByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT new com.calendar.calendar.dto.CalendarResponseDto(" +
+    @Query("SELECT new com.calendar.dto.response.CalendarResponseDto(" +
             "c.id, c.title, c.content, c.user.name, COUNT(com), c.created, c.updated) " +
             "FROM Calendar c LEFT JOIN Comment com ON com.calendar = c " +
             "GROUP BY c.id, c.title, c.content, c.user.name, c.created, c.updated " +

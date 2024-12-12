@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    @Query("SELECT new com.calendar.comment.dto.CommentResponseDto(" +
+    @Query("SELECT new com.calendar.dto.response.CommentResponseDto(" +
             "c.id, c.content, c.user.name, c.created, c.updated) " +
             "FROM Comment c WHERE c.calendar = :calendar")
     Page<CommentResponseDto> findCommentDtoByCalendar(@Param("calendar") Calendar calendar, Pageable pageable);
