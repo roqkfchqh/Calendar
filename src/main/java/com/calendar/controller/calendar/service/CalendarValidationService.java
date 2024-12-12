@@ -7,9 +7,11 @@ import com.calendar.controller.calendar.repository.CalendarRepository;
 import com.calendar.controller.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CalendarValidationService {
 
     private final CalendarRepository calendarRepository;

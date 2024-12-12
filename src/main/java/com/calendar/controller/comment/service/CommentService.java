@@ -41,6 +41,7 @@ public class CommentService {
     }
 
     //read
+    @Transactional(readOnly = true)
     public Page<CommentResponseDto> readCommentsCalender(Long calendarId, int page, int size){
         Pageable pageable = PageRequest.of(page, size, Sort.by("created").descending());
         Calendar calendar = calendarValidationService.validateCalendar(calendarId);

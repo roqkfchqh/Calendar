@@ -40,6 +40,7 @@ public class CalendarService {
     }
 
     //read
+    @Transactional(readOnly = true)
     public CalendarResponseDto readCalendar(Long id){
         Calendar calendar = calendarValidationService.validateCalendar(id);
         Integer commentsNum = commentRepository.countByCalendar(calendar);
@@ -68,6 +69,7 @@ public class CalendarService {
     }
 
     //findAll(paging)
+    @Transactional(readOnly = true)
     public Page<CalendarResponseDto> pageCalendars(int page, int size){
         Pageable pageable = PageRequest.of(page, size, Sort.by("created").descending());
         Page<Calendar> calendars = calendarRepository.findAll(pageable);
