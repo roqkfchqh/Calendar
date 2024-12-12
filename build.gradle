@@ -41,7 +41,6 @@ dependencies {
 	annotationProcessor('org.projectlombok:lombok')
 	implementation 'org.apache.commons:commons-pool2'
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-	implementation 'at.favre.lib:bcrypt:0.10.2'
 }
 
 tasks.withType(Test).configureEach {
