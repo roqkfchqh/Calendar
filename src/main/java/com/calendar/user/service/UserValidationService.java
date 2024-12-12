@@ -1,12 +1,12 @@
 package com.calendar.user.service;
 
+import com.calendar.common.encoder.BcryptEncoder;
 import com.calendar.common.exception.CustomException;
 import com.calendar.common.exception.ErrorCode;
 import com.calendar.user.model.User;
 import com.calendar.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserValidationService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final BcryptEncoder bcryptEncoder;
 
     public User validateUser(HttpServletRequest req) {
         User sessionUser = (User) req.getSession().getAttribute("user");
@@ -29,7 +29,7 @@ public class UserValidationService {
     }
 
     public void validatePassword(String sessionPassword, String inputPassword){
-        if(!passwordEncoder.matches(inputPassword, sessionPassword)){
+        if(!bcryptEncoder.matches(inputPassword, sessionPassword)){
             throw new CustomException(ErrorCode.WRONG_PASSWORD);
         }
     }
