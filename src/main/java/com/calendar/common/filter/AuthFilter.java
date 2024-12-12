@@ -1,7 +1,7 @@
 package com.calendar.common.filter;
 
-import com.calendar.controller.user.model.User;
-import com.calendar.controller.user.service.UserService;
+import com.calendar.user.model.User;
+import com.calendar.user.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
