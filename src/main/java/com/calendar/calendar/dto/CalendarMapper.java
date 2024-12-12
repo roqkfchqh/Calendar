@@ -6,12 +6,13 @@ import com.calendar.user.model.User;
 public class CalendarMapper {
 
     //entity -> dto
-    public static CalendarResponseDto toDto(Calendar calendar){
+    public static CalendarResponseDto toDto(Calendar calendar, Long commentNum){
         return CalendarResponseDto.builder()
                 .id(calendar.getId())
                 .title(calendar.getTitle())
                 .content(calendar.getContent())
                 .name(calendar.getUser().getName())
+                .commentNum(commentNum)
                 .created(calendar.getCreated())
                 .updated(calendar.getUpdated())
                 .build();

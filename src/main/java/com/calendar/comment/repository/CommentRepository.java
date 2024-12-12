@@ -17,4 +17,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             "c.id, c.content, c.user.name, c.created, c.updated) " +
             "FROM Comment c WHERE c.calendar = :calendar")
     Page<CommentResponseDto> findCommentDtoByCalendar(@Param("calendar") Calendar calendar, Pageable pageable);
+
+    Long countByCalendar(Calendar calendar);
 }
