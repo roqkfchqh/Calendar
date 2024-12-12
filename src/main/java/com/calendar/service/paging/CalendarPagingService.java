@@ -2,8 +2,8 @@ package com.calendar.service.paging;
 
 import com.calendar.dto.response.CalendarResponseDto;
 import com.calendar.repository.CalendarRepository;
-import com.calendar.common.exception.CustomException;
-import com.calendar.common.exception.ErrorCode;
+import com.calendar.exception.CustomException;
+import com.calendar.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

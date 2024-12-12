@@ -1,7 +1,7 @@
 package com.calendar.service.sign;
 
 import com.calendar.dto.request.user.SignupRequestDto;
-import com.calendar.dto.mapper.UserMapper;
+import com.calendar.mapper.UserMapper;
 import com.calendar.model.User;
 import com.calendar.repository.UserRepository;
 import com.calendar.service.validation.UserValidationService;

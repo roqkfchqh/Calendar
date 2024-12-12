@@ -1,11 +1,11 @@
 package com.calendar.service.crud;
 
-import com.calendar.common.exception.CustomException;
-import com.calendar.common.exception.ErrorCode;
+import com.calendar.exception.CustomException;
+import com.calendar.exception.ErrorCode;
 import com.calendar.repository.CalendarRepository;
 import com.calendar.dto.request.user.CurrentPasswordRequestDto;
 import com.calendar.dto.request.user.UpdateRequestDto;
-import com.calendar.dto.mapper.UserMapper;
+import com.calendar.mapper.UserMapper;
 import com.calendar.dto.response.UserResponseDto;
 import com.calendar.model.User;
 import com.calendar.repository.UserRepository;

@@ -1,7 +1,7 @@
 package com.calendar.service.sign;
 
-import com.calendar.common.exception.CustomException;
-import com.calendar.common.exception.ErrorCode;
+import com.calendar.exception.CustomException;
+import com.calendar.exception.ErrorCode;
 import com.calendar.dto.request.user.LoginRequestDto;
 import com.calendar.model.User;
 import com.calendar.repository.UserRepository;

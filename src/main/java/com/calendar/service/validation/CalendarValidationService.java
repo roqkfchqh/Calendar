@@ -1,7 +1,7 @@
 package com.calendar.service.validation;
 
-import com.calendar.common.exception.CustomException;
-import com.calendar.common.exception.ErrorCode;
+import com.calendar.exception.CustomException;
+import com.calendar.exception.ErrorCode;
 import com.calendar.model.Calendar;
 import com.calendar.repository.CalendarRepository;
 import com.calendar.model.User;

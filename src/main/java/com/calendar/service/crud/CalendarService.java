@@ -1,6 +1,6 @@
 package com.calendar.service.crud;
 
-import com.calendar.dto.mapper.CalendarMapper;
+import com.calendar.mapper.CalendarMapper;
 import com.calendar.dto.request.calendar.CalendarRequestDto;
 import com.calendar.dto.response.CalendarResponseDto;
 import com.calendar.model.Calendar;

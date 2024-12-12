@@ -1,6 +1,6 @@
-package com.calendar.common.config;
+package com.calendar.config;
 
-import com.calendar.common.filter.AuthFilter;
+import com.calendar.filter.AuthFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

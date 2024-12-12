@@ -1,4 +1,4 @@
-package com.calendar.common.exception;
+package com.calendar.exception;
 
 public class CustomException extends BaseException {
     public CustomException(ErrorCode errorCode) {

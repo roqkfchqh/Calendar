@@ -1,4 +1,4 @@
-package com.calendar.common.exception;
+package com.calendar.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

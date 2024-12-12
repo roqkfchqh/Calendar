@@ -1,9 +1,9 @@
 package com.calendar.service.crud;
 
-import com.calendar.common.exception.CustomException;
-import com.calendar.common.exception.ErrorCode;
+import com.calendar.exception.CustomException;
+import com.calendar.exception.ErrorCode;
 import com.calendar.model.Calendar;
-import com.calendar.dto.mapper.CommentMapper;
+import com.calendar.mapper.CommentMapper;
 import com.calendar.dto.request.comment.CommentRequestDto;
 import com.calendar.dto.response.CommentResponseDto;
 import com.calendar.model.Comment;

@@ -1,4 +1,4 @@
-package com.calendar.dto.mapper;
+package com.calendar.mapper;
 
 import com.calendar.dto.request.user.SignupRequestDto;
 import com.calendar.dto.response.UserResponseDto;

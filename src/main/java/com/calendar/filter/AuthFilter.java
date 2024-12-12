@@ -1,4 +1,4 @@
-package com.calendar.common.filter;
+package com.calendar.filter;
 
 import com.calendar.model.User;
 import com.calendar.service.crud.UserService;
