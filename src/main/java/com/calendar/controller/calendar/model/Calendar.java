@@ -38,13 +38,12 @@ public class Calendar {
     @LastModifiedDate
     private LocalDateTime updated;
 
-    public Calendar updateCalendar(String title, String content){
+    public void updateCalendar(String title, String content){
         if(title != null){
             this.title = title;
         }
         if(content != null){
             this.content = content;
         }
-        return this;
     }
 }

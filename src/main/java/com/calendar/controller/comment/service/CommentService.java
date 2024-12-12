@@ -49,13 +49,13 @@ public class CommentService {
 
     //update
     public CommentResponseDto updateComment(Long commentId, CommentRequestDto dto, HttpServletRequest req){
-        User user = userValidationService.validateUser(req);
+        userValidationService.validateUser(req);
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
 
-        Comment updateComment = comment.updateComment(dto.getContent());
-        commentRepository.save(updateComment);
-        return CommentMapper.toDto(updateComment);
+        comment.updateComment(dto.getContent());
+        commentRepository.save(comment);
+        return CommentMapper.toDto(comment);
     }
 
     //delete

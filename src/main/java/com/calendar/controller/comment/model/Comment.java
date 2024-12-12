@@ -43,10 +43,9 @@ public class Comment {
     @LastModifiedDate
     private LocalDateTime updated;
 
-    public Comment updateComment(String content){
+    public void updateComment(String content){
         if(content != null){
             this.content = content;
         }
-        return this;
     }
 }

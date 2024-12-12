@@ -32,13 +32,12 @@ public class User {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    public User updateUser(String name, String password){
+    public void updateUser(String name, String password){
         if(name != null){
             this.name = name;
         }
         if(password != null){
             this.password = password;
         }
-        return this;
     }
 }

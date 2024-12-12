@@ -51,10 +51,10 @@ public class CalendarService {
         Calendar calendar = calendarValidationService.validateCalendar(id);
         CalendarValidationService.authorityExtracted(calendar, user);
 
-        Calendar updateCalender = calendar.updateCalendar(dto.getTitle(), dto.getContent());
-        calendarRepository.save(updateCalender);
+        calendar.updateCalendar(dto.getTitle(), dto.getContent());
+        calendarRepository.save(calendar);
         Integer commentsNum = commentRepository.countByCalendar(calendar);
-        return CalendarMapper.toDto(updateCalender, commentsNum);
+        return CalendarMapper.toDto(calendar, commentsNum);
     }
 
     //delete
