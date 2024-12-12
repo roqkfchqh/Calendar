@@ -1,7 +1,7 @@
 package com.calendar.common.filter;
 
-import com.calendar.user.model.User;
-import com.calendar.user.service.UserService;
+import com.calendar.model.User;
+import com.calendar.service.crud.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,7 +46,7 @@ public class AuthFilter implements Filter {
             }
         }
 
-        if(req.getRequestURI().startsWith("/auth/login")){
+        if(req.getRequestURI().startsWith("/sign/login")){
             chain.doFilter(request, response);
             return;
         }
