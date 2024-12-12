@@ -6,6 +6,7 @@ import com.calendar.controller.user.dto.LoginRequestDto;
 import com.calendar.controller.user.model.User;
 import com.calendar.controller.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserLoginService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public User loginUser(LoginRequestDto dto){
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new CustomException(ErrorCode.WRONG_EMAIL_OR_PASSWORD));
-        if(!user.getPassword().equals(dto.getPassword())){
+        if(!passwordEncoder.matches(user.getPassword(), dto.getPassword())){
             throw new CustomException(ErrorCode.WRONG_EMAIL_OR_PASSWORD);
         }
         return user;
