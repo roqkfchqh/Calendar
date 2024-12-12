@@ -6,7 +6,6 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 @RequiredArgsConstructor
-@NoArgsConstructor(force = true)
 public class AuthFilter implements Filter {
 
     private final UserService userService;
