@@ -71,9 +71,10 @@ public class CalendarService {
     public Page<CalendarResponseDto> pageCalendars(int page, int size){
         Pageable pageable = PageRequest.of(page, size, Sort.by("created").descending());
         Page<Calendar> calendars = calendarRepository.findAll(pageable);
-        Integer commentsNum = commentRepository.countByCalendar((Calendar) calendars);
-        return calendars.map(calendar -> CalendarMapper.toDto(calendar, commentsNum));
+
+        return calendars.map(calendar -> {
+            Integer commentsNum = commentRepository.countByCalendar(calendar);
+            return CalendarMapper.toDto(calendar, commentsNum);
+        });
     }
-
-
 }
