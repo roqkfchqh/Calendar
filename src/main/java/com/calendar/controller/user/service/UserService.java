@@ -20,6 +20,7 @@ public class UserService {
     private final UserValidationService userValidationService;
 
     //read
+    @Transactional(readOnly = true)
     public UserResponseDto readUser(HttpServletRequest req){
         User user = userValidationService.validateUser(req);
         return UserMapper.toDto(user);
@@ -33,9 +34,9 @@ public class UserService {
         User user = userValidationService.validateUser(req);
         userValidationService.validatePassword(user.getPassword(), dto.getCurrentPassword());
 
-        User updatedUser = user.updateUser(dto.getName(), dto.getNewPassword());
-        userRepository.save(updatedUser);
-        return UserMapper.toDto(updatedUser);
+        user.updateUser(dto.getName(), dto.getNewPassword());
+        userRepository.save(user);
+        return UserMapper.toDto(user);
     }
 
     //delete

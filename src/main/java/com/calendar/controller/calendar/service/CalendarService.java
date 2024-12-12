@@ -1,6 +1,5 @@
 package com.calendar.controller.calendar.service;
 
-import com.calendar.common.exception.BadInputException;
 import com.calendar.controller.calendar.dto.CalendarMapper;
 import com.calendar.controller.calendar.dto.CalendarRequestDto;
 import com.calendar.controller.calendar.dto.CalendarResponseDto;
@@ -11,9 +10,11 @@ import com.calendar.controller.user.service.UserValidationService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CalendarService {
 
     private final CalendarRepository calendarRepository;
@@ -28,6 +29,7 @@ public class CalendarService {
         return CalendarMapper.toDto(calendar);
     }
 
+    @Transactional(readOnly = true)
     public CalendarResponseDto readCalendar(Long id, HttpServletRequest req){
         User user = userValidationService.validateUser(req);
         Calendar calendar = calendarValidationService.validateCalendar(id);
@@ -41,9 +43,9 @@ public class CalendarService {
         Calendar calendar = calendarValidationService.validateCalendar(id);
         CalendarValidationService.authorityExtracted(calendar, user);
 
-        Calendar updateCalendar = calendar.updateCalendar(dto.getTitle(), dto.getContent());
-        calendarRepository.save(updateCalendar);
-        return CalendarMapper.toDto(updateCalendar);
+        calendar.updateCalendar(dto.getTitle(), dto.getContent());
+        calendarRepository.save(calendar);
+        return CalendarMapper.toDto(calendar);
     }
 
     public void deleteCalendar(Long id, HttpServletRequest req){
