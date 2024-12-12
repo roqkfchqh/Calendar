@@ -45,10 +45,10 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<CommentResponseDto> deleteComment(
+    public ResponseEntity<String> deleteComment(
             @PathVariable Long commentId,
             HttpServletRequest req){
         commentService.deleteComment(commentId, req);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
     }
 }

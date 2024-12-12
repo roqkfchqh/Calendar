@@ -41,11 +41,11 @@ public class CalendarController {
     }
 
     @DeleteMapping("/{calendarId}")
-    public ResponseEntity<CalendarResponseDto> deleteCalendar(
+    public ResponseEntity<String> deleteCalendar(
             @PathVariable Long calendarId,
             HttpServletRequest req){
         calendarService.deleteCalendar(calendarId, req);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("일정이 성공적으로 삭제되었습니다.");
     }
 
     @GetMapping

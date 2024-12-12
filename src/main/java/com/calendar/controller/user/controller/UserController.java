@@ -36,14 +36,13 @@ public class UserController {
 
     //delete
     @PostMapping("/delete")
-    public ResponseEntity<UserResponseDto> deleteUser(
+    public ResponseEntity<String> deleteUser(
             @RequestBody CurrentPasswordRequestDto currentPasswordRequestDto,
             HttpServletRequest req,
             HttpServletResponse res){
         userService.deleteUser(req, currentPasswordRequestDto);
         req.getSession().invalidate();
         SessionAndCookie.delete(req, res);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("회원 탈퇴가 정상적으로 완료되었습니다.");
     }
-
 }
