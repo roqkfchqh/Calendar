@@ -19,7 +19,7 @@ public class CalendarValidationService {
                 .orElseThrow(() -> new CustomException(ErrorCode.CONTENT_NOT_FOUND));
     }
 
-    public static void authorityExtracted(Calendar calendar, User user){
+    public void authorityExtracted(Calendar calendar, User user){
         if(!calendar.getUser().getId().equals(user.getId())){
             throw new CustomException(ErrorCode.FORBIDDEN_OPERATION);
         }

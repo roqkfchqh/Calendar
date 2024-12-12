@@ -35,7 +35,6 @@ public class UserService {
         userValidationService.validatePassword(user.getPassword(), dto.getCurrentPassword());
 
         user.updateUser(dto.getName(), dto.getNewPassword());
-        userRepository.save(user);
         return UserMapper.toDto(user);
     }
 

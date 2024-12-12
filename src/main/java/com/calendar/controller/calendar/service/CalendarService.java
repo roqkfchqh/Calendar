@@ -16,9 +16,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CalendarService {
 
     private final CalendarRepository calendarRepository;
@@ -49,10 +51,9 @@ public class CalendarService {
     public CalendarResponseDto updateCalendar(Long id, CalendarRequestDto dto, HttpServletRequest req){
         User user = userValidationService.validateUser(req);
         Calendar calendar = calendarValidationService.validateCalendar(id);
-        CalendarValidationService.authorityExtracted(calendar, user);
+        calendarValidationService.authorityExtracted(calendar, user);
 
         calendar.updateCalendar(dto.getTitle(), dto.getContent());
-        calendarRepository.save(calendar);
         Integer commentsNum = commentRepository.countByCalendar(calendar);
         return CalendarMapper.toDto(calendar, commentsNum);
     }
@@ -61,7 +62,7 @@ public class CalendarService {
     public void deleteCalendar(Long id, HttpServletRequest req){
         User user = userValidationService.validateUser(req);
         Calendar calendar = calendarValidationService.validateCalendar(id);
-        CalendarValidationService.authorityExtracted(calendar, user);
+        calendarValidationService.authorityExtracted(calendar, user);
 
         calendarRepository.deleteById(id);
     }
