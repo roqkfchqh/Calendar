@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface CalendarRepository extends JpaRepository<Calendar, Long> {
 
-    @EntityGraph(attributePaths = {"user"})
+    @EntityGraph(attributePaths = {"users"}) //이거 필수과제 수정
     @Query("SELECT c FROM Calendar c WHERE c.id = :id")
     Optional<Calendar> findByIdWithUser(@Param("id") Long id);
 

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CommentController {
 
+    private static final String PAGE_SIZE = "10";
+
     private final CommentService commentService;
 
     @PostMapping("/{calendarId}")
@@ -28,8 +30,9 @@ public class CommentController {
     @GetMapping("/{calendarId}")
     public ResponseEntity<Page<CommentResponseDto>> readCommentsCalendar(
             @PathVariable Long calendarId,
-            @RequestParam(defaultValue = "0") int page){
-        Page<CommentResponseDto> commentsPage = commentService.readCommentsCalender(calendarId, page);
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = PAGE_SIZE) int size){
+        Page<CommentResponseDto> commentsPage = commentService.readCommentsCalender(calendarId, page, size);
         return ResponseEntity.ok(commentsPage);
     }
 

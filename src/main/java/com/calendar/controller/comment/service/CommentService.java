@@ -13,6 +13,11 @@ import com.calendar.controller.user.model.User;
 import com.calendar.controller.user.service.UserValidationService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,6 +39,13 @@ public class CommentService {
     }
 
     //read
+    public Page<CommentResponseDto> readCommentsCalender(Long calendarId, int page, int size){
+        Pageable pageable = PageRequest.of(page, size, Sort.by("created").descending());
+        Calendar calendar = calendarValidationService.validateCalendar(calendarId);
+
+        Page<Comment> commentPage = commentRepository.findByCalendar(calendar, pageable);
+        return commentPage.map(CommentMapper::toDto);
+    }
 
     //update
     public CommentResponseDto updateComment(Long commentId, CommentRequestDto dto, HttpServletRequest req){

@@ -14,6 +14,7 @@ public class CalendarResponseDto {
     private String title;
     private String content;
     private String name;
+    private Integer commentsNum;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private String created;

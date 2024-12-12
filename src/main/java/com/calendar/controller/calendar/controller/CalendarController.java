@@ -6,6 +6,7 @@ import com.calendar.controller.calendar.service.CalendarService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/calendars")
 @RequiredArgsConstructor
 public class CalendarController {
+
+    private static final String PAGE_SIZE = "10";
 
     private final CalendarService calendarService;
 
@@ -43,6 +46,14 @@ public class CalendarController {
             HttpServletRequest req){
         calendarService.deleteCalendar(calendarId, req);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<CalendarResponseDto>> readCalendars(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = PAGE_SIZE) int size){
+        Page<CalendarResponseDto> calendars = calendarService.pageCalendars(page, size);
+        return ResponseEntity.ok(calendars);
     }
 
 }
