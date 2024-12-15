@@ -51,6 +51,7 @@ public class CalendarService {
 
         calendar.updateCalendar(dto.getTitle(), dto.getContent());
         Long commentNum = commentRepository.countByCalendar(calendar);
+        calendarRepository.save(calendar);
         return CalendarMapper.toDto(calendar,commentNum);
     }
 
