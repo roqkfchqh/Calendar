@@ -27,7 +27,7 @@ public class CommentPagingService {
         if(page < 1 || size < 1){
             throw new CustomException(ErrorCode.PAGING_ERROR);
         }
-        Pageable pageable = PageRequest.of(page, size, Sort.by("created").descending());
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("created").descending());
         Calendar calendar = calendarValidationService.validateCalendar(calendarId);
 
         Page<CommentResponseDto> comments = commentRepository.findCommentDtoByCalendar(calendar, pageable);

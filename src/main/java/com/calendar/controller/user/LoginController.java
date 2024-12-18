@@ -36,7 +36,7 @@ public class LoginController {
     public ResponseEntity<String> logout(
             HttpServletRequest req,
             HttpServletResponse res){
-        if(req.getSession().getAttribute("user") == null){
+        if(req.getSession().getAttribute("userId") == null){
             throw new CustomException(ErrorCode.BAD_GATEWAY);
         }
         SessionAndCookie.delete(req, res);
