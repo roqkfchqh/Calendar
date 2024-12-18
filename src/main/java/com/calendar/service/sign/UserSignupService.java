@@ -19,12 +19,12 @@ public class UserSignupService {
     private final UserValidationService userValidationService;
     private final PasswordEncoder passwordEncoder;
 
-    public User registerUser(SignupRequestDto dto){
+    public Long registerUser(SignupRequestDto dto){
         userValidationService.isEmailTaken(dto.getEmail());
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
 
         User user = UserMapper.toEntity(dto, encodedPassword);
         userRepository.save(user);
-        return user;
+        return user.getId();
     }
 }

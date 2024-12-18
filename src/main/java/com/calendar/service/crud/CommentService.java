@@ -11,7 +11,6 @@ import com.calendar.repository.CommentRepository;
 import com.calendar.model.User;
 import com.calendar.service.validation.CalendarValidationService;
 import com.calendar.service.validation.UserValidationService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +25,8 @@ public class CommentService {
     private final CalendarValidationService calendarValidationService;
 
     //create
-    public CommentResponseDto createComment(Long calendarId, CommentRequestDto dto, HttpServletRequest req){
-        User user = userValidationService.validateUser(req);
+    public CommentResponseDto createComment(Long calendarId, CommentRequestDto dto, Long userId){
+        User user = userValidationService.validateUser(userId);
         Calendar calendar = calendarValidationService.validateCalendar(calendarId);
 
         Comment comment = CommentMapper.toEntity(dto, user, calendar);
@@ -36,8 +35,8 @@ public class CommentService {
     }
 
     //update
-    public CommentResponseDto updateComment(Long commentId, CommentRequestDto dto, HttpServletRequest req){
-        userValidationService.validateUser(req);
+    public CommentResponseDto updateComment(Long commentId, CommentRequestDto dto, Long userId){
+        userValidationService.validateUser(userId);
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
 
@@ -46,8 +45,8 @@ public class CommentService {
     }
 
     //delete
-    public void deleteComment(Long commentId, HttpServletRequest req){
-        userValidationService.validateUser(req);
+    public void deleteComment(Long commentId, Long userId){
+        userValidationService.validateUser(userId);
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));
         commentRepository.delete(comment);

@@ -10,7 +10,6 @@ import com.calendar.dto.response.UserResponseDto;
 import com.calendar.model.User;
 import com.calendar.repository.UserRepository;
 import com.calendar.service.validation.UserValidationService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,17 +24,17 @@ public class UserService {
     private final UserValidationService userValidationService;
 
     //read
-    public UserResponseDto readUser(HttpServletRequest req){
-        User user = userValidationService.validateUser(req);
+    public UserResponseDto readUser(Long userId){
+        User user = userValidationService.validateUser(userId);
         return UserMapper.toDto(user);
     }
 
     //update
     public UserResponseDto updateUser(
             UpdateRequestDto dto,
-            HttpServletRequest req){
+            Long userId){
 
-        User user = userValidationService.validateUser(req);
+        User user = userValidationService.validateUser(userId);
         userValidationService.validatePassword(user.getPassword(), dto.getCurrentPassword());
 
         user.updateUser(dto.getName(), dto.getNewPassword());
@@ -43,16 +42,16 @@ public class UserService {
     }
 
     //delete
-    public void deleteUser(HttpServletRequest req, CurrentPasswordRequestDto currentPasswordRequestDto){
-        User user = userValidationService.validateUser(req);
+    public void deleteUser(Long userId, CurrentPasswordRequestDto currentPasswordRequestDto){
+        User user = userValidationService.validateUser(userId);
         userValidationService.validatePassword(user.getPassword(), currentPasswordRequestDto.getCurrentPassword());
         calendarRepository.deleteByUserId(user.getId());
         userRepository.deleteById(user.getId());
     }
 
     //get(for cookie)
-    public User getUserByEmail(String email){
-        return userRepository.findByEmail(email)
+    public User getUserById(Long userId){
+        return userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
     }
 }

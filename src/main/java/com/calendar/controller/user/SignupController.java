@@ -1,7 +1,6 @@
 package com.calendar.controller.user;
 
 import com.calendar.dto.request.user.SignupRequestDto;
-import com.calendar.model.User;
 import com.calendar.service.sign.UserSignupService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,9 +21,9 @@ public class SignupController {
             @Valid @RequestBody SignupRequestDto dto,
             HttpServletRequest req,
             HttpServletResponse res) {
-        User user = userSignupService.registerUser(dto);
+        Long userId = userSignupService.registerUser(dto);
 
-        SessionAndCookie.remember(req, res, user);
+        SessionAndCookie.remember(req, res, userId);
 
         return ResponseEntity.ok("회원가입 완료");
     }

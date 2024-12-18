@@ -27,8 +27,8 @@ public class AuthFilter implements Filter {
             return;
         }
 
-        User sessionUser = (User) req.getSession().getAttribute("user");
-        if(sessionUser != null){
+        Long userId = (Long) req.getSession().getAttribute("userId");
+        if(userId != null){
             chain.doFilter(request, response);
             return;
         }
@@ -37,10 +37,10 @@ public class AuthFilter implements Filter {
         if(cookies != null){
             for(Cookie cookie : cookies){
                 if("rememberMe".equals(cookie.getName())){
-                    String email = cookie.getValue();
-                    User user = Objects.requireNonNull(userService).getUserByEmail(email);
+                    Long cookieValue = Long.valueOf(cookie.getValue());
+                    User user = Objects.requireNonNull(userService).getUserById(cookieValue);
                     if(user != null){
-                        req.getSession().setAttribute("user", user);
+                        req.getSession().setAttribute("userId", cookieValue);
                     }
                 }
             }

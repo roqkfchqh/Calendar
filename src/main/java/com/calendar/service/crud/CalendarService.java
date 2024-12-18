@@ -9,7 +9,6 @@ import com.calendar.repository.CommentRepository;
 import com.calendar.model.User;
 import com.calendar.service.validation.CalendarValidationService;
 import com.calendar.service.validation.UserValidationService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +25,8 @@ public class CalendarService {
 
 
     //create
-    public CalendarResponseDto createCalendar(CalendarRequestDto dto, HttpServletRequest req){
-        User user = userValidationService.validateUser(req);
+    public CalendarResponseDto createCalendar(CalendarRequestDto dto, Long userId){
+        User user = userValidationService.validateUser(userId);
 
         Calendar calendar = CalendarMapper.toEntity(dto, user);
         calendarRepository.save(calendar);
@@ -44,8 +43,8 @@ public class CalendarService {
     }
 
     //update
-    public CalendarResponseDto updateCalendar(Long id, CalendarRequestDto dto, HttpServletRequest req){
-        User user = userValidationService.validateUser(req);
+    public CalendarResponseDto updateCalendar(Long id, CalendarRequestDto dto, Long userId){
+        User user = userValidationService.validateUser(userId);
         Calendar calendar = calendarValidationService.validateCalendar(id);
         calendarValidationService.authorityExtracted(calendar, user);
 
@@ -56,8 +55,8 @@ public class CalendarService {
     }
 
     //delete
-    public void deleteCalendar(Long id, HttpServletRequest req){
-        User user = userValidationService.validateUser(req);
+    public void deleteCalendar(Long id, Long userId){
+        User user = userValidationService.validateUser(userId);
         Calendar calendar = calendarValidationService.validateCalendar(id);
         calendarValidationService.authorityExtracted(calendar, user);
 

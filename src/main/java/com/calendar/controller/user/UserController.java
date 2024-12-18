@@ -22,7 +22,8 @@ public class UserController {
     @GetMapping
     public ResponseEntity<UserResponseDto> getUser(
             HttpServletRequest req){
-        return ResponseEntity.ok(userService.readUser(req));
+        Long userId = (Long) req.getSession().getAttribute("userId");
+        return ResponseEntity.ok(userService.readUser(userId));
     }
 
     //update
@@ -30,7 +31,8 @@ public class UserController {
     public ResponseEntity<UserResponseDto> updateUser(
             @Valid @RequestBody UpdateRequestDto dto,
             HttpServletRequest req){
-        UserResponseDto user = userService.updateUser(dto, req);
+        Long userId = (Long) req.getSession().getAttribute("userId");
+        UserResponseDto user = userService.updateUser(dto, userId);
         return ResponseEntity.ok(user);
     }
 
@@ -40,7 +42,8 @@ public class UserController {
             @RequestBody CurrentPasswordRequestDto currentPasswordRequestDto,
             HttpServletRequest req,
             HttpServletResponse res){
-        userService.deleteUser(req, currentPasswordRequestDto);
+        Long userId = (Long) req.getSession().getAttribute("userId");
+        userService.deleteUser(userId, currentPasswordRequestDto);
         req.getSession().invalidate();
         SessionAndCookie.delete(req, res);
         return ResponseEntity.ok("회원 탈퇴가 정상적으로 완료되었습니다.");

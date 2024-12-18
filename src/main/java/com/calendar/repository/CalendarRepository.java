@@ -5,17 +5,13 @@ import com.calendar.model.Calendar;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CalendarRepository extends JpaRepository<Calendar, Long> {
 
-    @Modifying
-    @Query("DELETE FROM Calendar c WHERE c.user.id = :userId")
-    void deleteByUserId(@Param("userId") Long userId);
+    void deleteByUserId(Long userId);
 
     @Query("SELECT new com.calendar.dto.response.CalendarResponseDto(" +
             "c.id, c.title, c.content, c.user.name, COUNT(com), c.created, c.updated) " +

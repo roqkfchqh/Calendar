@@ -25,7 +25,8 @@ public class CalendarController {
     public ResponseEntity<CalendarResponseDto> createCalendar(
             @Valid @RequestBody CalendarRequestDto dto,
             HttpServletRequest req){
-        return ResponseEntity.ok(calendarService.createCalendar(dto, req));
+        Long userId = (Long) req.getSession().getAttribute("userId");
+        return ResponseEntity.ok(calendarService.createCalendar(dto, userId));
     }
 
     @GetMapping("/{calendarId}")
@@ -39,14 +40,16 @@ public class CalendarController {
             @PathVariable Long calendarId,
             @Valid @RequestBody CalendarRequestDto dto,
             HttpServletRequest req){
-        return ResponseEntity.ok(calendarService.updateCalendar(calendarId, dto, req));
+        Long userId = (Long) req.getSession().getAttribute("userId");
+        return ResponseEntity.ok(calendarService.updateCalendar(calendarId, dto, userId));
     }
 
     @DeleteMapping("/{calendarId}")
     public ResponseEntity<String> deleteCalendar(
             @PathVariable Long calendarId,
             HttpServletRequest req){
-        calendarService.deleteCalendar(calendarId, req);
+        Long userId = (Long) req.getSession().getAttribute("userId");
+        calendarService.deleteCalendar(calendarId, userId);
         return ResponseEntity.ok("일정이 성공적으로 삭제되었습니다.");
     }
 

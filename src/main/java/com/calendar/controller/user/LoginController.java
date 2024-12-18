@@ -3,7 +3,6 @@ package com.calendar.controller.user;
 import com.calendar.exception.CustomException;
 import com.calendar.exception.ErrorCode;
 import com.calendar.dto.request.user.LoginRequestDto;
-import com.calendar.model.User;
 import com.calendar.service.sign.UserLoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,9 +22,9 @@ public class LoginController {
             @RequestBody LoginRequestDto dto,
             HttpServletRequest req,
             HttpServletResponse res){
-        User user = userLoginService.loginUser(dto);
-        if(user != null) {
-            SessionAndCookie.remember(req, res, user);
+        Long userId = userLoginService.loginUser(dto);
+        if(userId != null) {
+            SessionAndCookie.remember(req, res, userId);
 
             return ResponseEntity.ok("로그인 완료");
         }else{

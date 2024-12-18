@@ -26,7 +26,8 @@ public class CommentController {
             @PathVariable Long calendarId,
             @Valid @RequestBody CommentRequestDto dto,
             HttpServletRequest req){
-        return ResponseEntity.ok(commentService.createComment(calendarId, dto, req));
+        Long userId = (Long) req.getSession().getAttribute("userId");
+        return ResponseEntity.ok(commentService.createComment(calendarId, dto, userId));
     }
 
     @GetMapping("/{calendarId}")
@@ -43,14 +44,16 @@ public class CommentController {
             @PathVariable Long commentId,
             @RequestBody CommentRequestDto dto,
             HttpServletRequest req){
-        return ResponseEntity.ok(commentService.updateComment(commentId, dto, req));
+        Long userId = (Long) req.getSession().getAttribute("userId");
+        return ResponseEntity.ok(commentService.updateComment(commentId, dto, userId));
     }
 
     @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteComment(
             @PathVariable Long commentId,
             HttpServletRequest req){
-        commentService.deleteComment(commentId, req);
+        Long userId = (Long) req.getSession().getAttribute("userId");
+        commentService.deleteComment(commentId, userId);
         return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
     }
 }

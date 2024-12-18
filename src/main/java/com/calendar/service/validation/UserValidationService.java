@@ -4,7 +4,6 @@ import com.calendar.exception.CustomException;
 import com.calendar.exception.ErrorCode;
 import com.calendar.model.User;
 import com.calendar.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,13 +17,12 @@ public class UserValidationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public User validateUser(HttpServletRequest req) {
-        User sessionUser = (User) req.getSession().getAttribute("user");
-        if(sessionUser == null){
+    public User validateUser(Long userId) {
+        if(userId == null){
             throw new CustomException(ErrorCode.LOGIN_REQUIRED);
         }
 
-        return userRepository.findById(sessionUser.getId())
+        return userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
     }
 
