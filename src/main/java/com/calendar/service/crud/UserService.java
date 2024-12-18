@@ -45,8 +45,8 @@ public class UserService {
     public void deleteUser(Long userId, CurrentPasswordRequestDto currentPasswordRequestDto){
         User user = userValidationService.validateUser(userId);
         userValidationService.validatePassword(user.getPassword(), currentPasswordRequestDto.getCurrentPassword());
-        calendarRepository.deleteByUserId(user.getId());
-        userRepository.deleteById(user.getId());
+        calendarRepository.deleteByUserId(userId);
+        userRepository.deleteById(userId);
     }
 
     //get(for cookie)
