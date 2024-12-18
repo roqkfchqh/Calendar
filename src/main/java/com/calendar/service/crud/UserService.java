@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -30,6 +29,7 @@ public class UserService {
     }
 
     //update
+    @Transactional
     public UserResponseDto updateUser(
             UpdateRequestDto dto,
             Long userId){

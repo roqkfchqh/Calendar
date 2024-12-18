@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +18,6 @@ public class CalendarPagingService {
     private final CalendarRepository calendarRepository;
 
     //findAll(paging)
-    @Transactional(readOnly = true)
     public Page<CalendarResponseDto> pageCalendars(int page, int size){
         if(page < 1 || size < 1){
             throw new CustomException(ErrorCode.PAGING_ERROR);

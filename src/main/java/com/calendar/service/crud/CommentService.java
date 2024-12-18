@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class CommentService {
 
     private final CommentRepository commentRepository;
@@ -25,6 +24,7 @@ public class CommentService {
     private final CalendarValidationService calendarValidationService;
 
     //create
+    @Transactional
     public CommentResponseDto createComment(Long calendarId, CommentRequestDto dto, Long userId){
         User user = userValidationService.validateUser(userId);
         Calendar calendar = calendarValidationService.validateCalendar(calendarId);
@@ -35,6 +35,7 @@ public class CommentService {
     }
 
     //update
+    @Transactional
     public CommentResponseDto updateComment(Long commentId, CommentRequestDto dto, Long userId){
         userValidationService.validateUser(userId);
         Comment comment = commentRepository.findById(commentId)

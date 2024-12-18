@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class CalendarService {
 
     private final CalendarRepository calendarRepository;
@@ -35,7 +34,6 @@ public class CalendarService {
     }
 
     //read
-    @Transactional(readOnly = true)
     public CalendarResponseDto readCalendar(Long id){
         Calendar calendar = calendarValidationService.validateCalendar(id);
         Long commentNum = commentRepository.countByCalendar(calendar);
@@ -43,6 +41,7 @@ public class CalendarService {
     }
 
     //update
+    @Transactional
     public CalendarResponseDto updateCalendar(Long id, CalendarRequestDto dto, Long userId){
         User user = userValidationService.validateUser(userId);
         Calendar calendar = calendarValidationService.validateCalendar(id);
@@ -50,7 +49,6 @@ public class CalendarService {
 
         calendar.updateCalendar(dto.getTitle(), dto.getContent());
         Long commentNum = commentRepository.countByCalendar(calendar);
-        calendarRepository.save(calendar);
         return CalendarMapper.toDto(calendar,commentNum);
     }
 
