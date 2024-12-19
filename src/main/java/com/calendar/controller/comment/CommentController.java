@@ -21,6 +21,7 @@ public class CommentController {
     private final CommentService commentService;
     private final CommentPagingService commentPagingService;
 
+    //create
     @PostMapping("/{calendarId}")
     public ResponseEntity<CommentResponseDto> createComment(
             @PathVariable Long calendarId,
@@ -30,6 +31,7 @@ public class CommentController {
         return ResponseEntity.ok(commentService.createComment(calendarId, dto, userId));
     }
 
+    //read
     @GetMapping("/{calendarId}")
     public ResponseEntity<Page<CommentResponseDto>> readCommentsCalendar(
             @PathVariable Long calendarId,
@@ -39,6 +41,7 @@ public class CommentController {
         return ResponseEntity.ok(commentsPage);
     }
 
+    //update
     @PatchMapping("/{commentId}")
     public ResponseEntity<CommentResponseDto> updateComment(
             @PathVariable Long commentId,
@@ -48,6 +51,7 @@ public class CommentController {
         return ResponseEntity.ok(commentService.updateComment(commentId, dto, userId));
     }
 
+    //delete
     @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteComment(
             @PathVariable Long commentId,

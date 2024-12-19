@@ -15,6 +15,7 @@ public class UserLoginService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    //로그인
     public Long loginUser(LoginRequestDto dto){
         Long userId = userRepository.findIdByEmail(dto.getEmail());
         if(userId == null || !passwordEncoder.matches(dto.getPassword(), userRepository.findPasswordById(userId))){

@@ -3,6 +3,7 @@ package com.calendar.controller.user;
 import com.calendar.exception.CustomException;
 import com.calendar.exception.ErrorCode;
 import com.calendar.dto.request.user.LoginRequestDto;
+import com.calendar.service.sign.SessionAndCookieSettingService;
 import com.calendar.service.sign.UserLoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     private final UserLoginService userLoginService;
+    private final SessionAndCookieSettingService sessionAndCookieSettingService;
 
+    //로그인
     @PostMapping("/login")
     public ResponseEntity<String> login(
             @RequestBody LoginRequestDto dto,
@@ -24,7 +27,7 @@ public class LoginController {
             HttpServletResponse res){
         Long userId = userLoginService.loginUser(dto);
         if(userId != null) {
-            SessionAndCookie.remember(req, res, userId);
+            sessionAndCookieSettingService.remember(req, res, userId);
 
             return ResponseEntity.ok("로그인 완료");
         }else{
@@ -32,6 +35,7 @@ public class LoginController {
         }
     }
 
+    //로그아웃
     @PostMapping("/logout")
     public ResponseEntity<String> logout(
             HttpServletRequest req,
@@ -39,7 +43,7 @@ public class LoginController {
         if(req.getSession().getAttribute("userId") == null){
             throw new CustomException(ErrorCode.BAD_GATEWAY);
         }
-        SessionAndCookie.delete(req, res);
+        sessionAndCookieSettingService.delete(req, res);
         return ResponseEntity.ok("로그아웃 완료");
     }
 }

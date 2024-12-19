@@ -21,6 +21,7 @@ public class CalendarController {
     private final CalendarService calendarService;
     private final CalendarPagingService calendarPagingService;
 
+    //create
     @PostMapping
     public ResponseEntity<CalendarResponseDto> createCalendar(
             @Valid @RequestBody CalendarRequestDto dto,
@@ -29,12 +30,14 @@ public class CalendarController {
         return ResponseEntity.ok(calendarService.createCalendar(dto, userId));
     }
 
+    //read
     @GetMapping("/{calendarId}")
     public ResponseEntity<CalendarResponseDto> readCalendar(
             @PathVariable Long calendarId){
         return ResponseEntity.ok(calendarService.readCalendar(calendarId));
     }
 
+    //update
     @PatchMapping("/{calendarId}")
     public ResponseEntity<CalendarResponseDto> updateCalendar(
             @PathVariable Long calendarId,
@@ -44,6 +47,7 @@ public class CalendarController {
         return ResponseEntity.ok(calendarService.updateCalendar(calendarId, dto, userId));
     }
 
+    //delete
     @DeleteMapping("/{calendarId}")
     public ResponseEntity<String> deleteCalendar(
             @PathVariable Long calendarId,
@@ -53,6 +57,7 @@ public class CalendarController {
         return ResponseEntity.ok("일정이 성공적으로 삭제되었습니다.");
     }
 
+    //read (paging)
     @GetMapping
     public ResponseEntity<Page<CalendarResponseDto>> readCalendars(
             @RequestParam(defaultValue = "1") int page,

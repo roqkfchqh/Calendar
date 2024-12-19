@@ -14,11 +14,13 @@ public class CalendarValidationService {
 
     private final CalendarRepository calendarRepository;
 
+    //calendar 유효한지
     public Calendar validateCalendar(Long id) {
         return calendarRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.CONTENT_NOT_FOUND));
     }
 
+    //이중차단용
     public void authorityExtracted(Calendar calendar, User user){
         if(!calendar.getUser().getId().equals(user.getId())){
             throw new CustomException(ErrorCode.FORBIDDEN_OPERATION);

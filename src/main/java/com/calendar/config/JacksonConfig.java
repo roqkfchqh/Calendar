@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class JacksonConfig {
 
+    //javaTimeModule 역직렬화 기본형식 설정
     @Bean
     @Primary
     public ObjectMapper objectMapper() {

@@ -1,12 +1,15 @@
-package com.calendar.controller.user;
+package com.calendar.service.sign;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Service;
 
-public class SessionAndCookie {
+@Service
+public class SessionAndCookieSettingService {
 
-    public static void remember(HttpServletRequest req, HttpServletResponse res, Long userId) {
+    //cookie&session 에 userId
+    public void remember(HttpServletRequest req, HttpServletResponse res, Long userId) {
         req.getSession().setAttribute("userId", userId);
         req.getSession().setMaxInactiveInterval(1800);
 
@@ -18,7 +21,8 @@ public class SessionAndCookie {
         res.addCookie(rememberMeCookie);
     }
 
-    public static void delete(HttpServletRequest req, HttpServletResponse res) {
+    //cookie&session 삭제
+    public void delete(HttpServletRequest req, HttpServletResponse res) {
         req.getSession().invalidate();
         Cookie rememberMeCookie = new Cookie("rememberMe", null);
         rememberMeCookie.setMaxAge(0);

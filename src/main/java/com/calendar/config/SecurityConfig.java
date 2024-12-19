@@ -3,6 +3,7 @@ package com.calendar.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +18,7 @@ public class SecurityConfig {
     //유저권한 접근페이지 설정
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf((csrf) -> csrf.disable());
+        http.csrf(AbstractHttpConfigurer::disable);
 
         http.sessionManagement((sessionManagement) ->
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
@@ -32,6 +33,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    //admin (개발용)
     @Bean
     public InMemoryUserDetailsManager userDetailsService(){
         UserDetails user = User.builder()

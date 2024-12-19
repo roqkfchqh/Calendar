@@ -35,7 +35,7 @@ public class UserService {
             Long userId){
 
         User user = userValidationService.validateUser(userId);
-        userValidationService.validatePassword(user.getPassword(), dto.getCurrentPassword());
+        userValidationService.validatePassword(userId, dto.getCurrentPassword());
 
         user.updateUser(dto.getName(), dto.getNewPassword());
         return UserMapper.toDto(user);
@@ -43,8 +43,8 @@ public class UserService {
 
     //delete
     public void deleteUser(Long userId, CurrentPasswordRequestDto currentPasswordRequestDto){
-        User user = userValidationService.validateUser(userId);
-        userValidationService.validatePassword(user.getPassword(), currentPasswordRequestDto.getCurrentPassword());
+        userValidationService.validateUser(userId);
+        userValidationService.validatePassword(userId, currentPasswordRequestDto.getCurrentPassword());
         calendarRepository.deleteByUserId(userId);
         userRepository.deleteById(userId);
     }

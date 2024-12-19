@@ -22,17 +22,20 @@ public class AuthFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
-        if (req.getRequestURI().startsWith("/swagger-ui/") || req.getRequestURI().startsWith("/v3/api-docs/")) {
+        //swagger 테스트 위한 설정
+        if (req.getRequestURI().startsWith("/swagger-ui/") || req.getRequestURI().startsWith("/v3/api-docs/")){
             chain.doFilter(request, response);
             return;
         }
 
+        //userId 를 session 에 저장
         Long userId = (Long) req.getSession().getAttribute("userId");
         if(userId != null){
             chain.doFilter(request, response);
             return;
         }
 
+        //cookie 에도 마찬가지로 userId
         Cookie[] cookies = req.getCookies();
         if(cookies != null){
             for(Cookie cookie : cookies){
@@ -46,6 +49,7 @@ public class AuthFilter implements Filter {
             }
         }
 
+        //login 은 컨트롤러로 요청전달
         if(req.getRequestURI().startsWith("/sign/login")){
             chain.doFilter(request, response);
             return;

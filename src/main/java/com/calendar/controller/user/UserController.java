@@ -3,6 +3,7 @@ package com.calendar.controller.user;
 import com.calendar.dto.request.user.CurrentPasswordRequestDto;
 import com.calendar.dto.request.user.UpdateRequestDto;
 import com.calendar.dto.response.UserResponseDto;
+import com.calendar.service.sign.SessionAndCookieSettingService;
 import com.calendar.service.crud.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final SessionAndCookieSettingService sessionAndCookieSettingService;
 
     //read
     @GetMapping
@@ -45,7 +47,7 @@ public class UserController {
         Long userId = (Long) req.getSession().getAttribute("userId");
         userService.deleteUser(userId, currentPasswordRequestDto);
         req.getSession().invalidate();
-        SessionAndCookie.delete(req, res);
+        sessionAndCookieSettingService.delete(req, res);
         return ResponseEntity.ok("회원 탈퇴가 정상적으로 완료되었습니다.");
     }
 }

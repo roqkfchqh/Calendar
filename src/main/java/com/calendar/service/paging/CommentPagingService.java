@@ -20,7 +20,7 @@ public class CommentPagingService {
     private final CommentRepository commentRepository;
     private final CalendarValidationService calendarValidationService;
 
-    //read
+    //comment paging
     public Page<CommentResponseDto> readCommentsCalender(Long calendarId, int page, int size){
         if(page < 1 || size < 1){
             throw new CustomException(ErrorCode.PAGING_ERROR);

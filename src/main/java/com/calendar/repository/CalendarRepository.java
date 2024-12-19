@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CalendarRepository extends JpaRepository<Calendar, Long> {
 
+    //user 삭제 시 calendar 함께 삭제
     void deleteByUserId(Long userId);
 
+    //calendar paging + comment num 과 함께
     @Query("SELECT new com.calendar.dto.response.CalendarResponseDto(" +
             "c.id, c.title, c.content, c.user.name, COUNT(com), c.created, c.updated) " +
             "FROM Calendar c LEFT JOIN Comment com ON com.calendar = c " +

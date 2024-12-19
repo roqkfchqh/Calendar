@@ -17,6 +17,7 @@ public class UserSignupService {
     private final UserValidationService userValidationService;
     private final PasswordEncoder passwordEncoder;
 
+    //회원가입
     public Long registerUser(SignupRequestDto dto){
         userValidationService.isEmailTaken(dto.getEmail());
         String encodedPassword = passwordEncoder.encode(dto.getPassword());

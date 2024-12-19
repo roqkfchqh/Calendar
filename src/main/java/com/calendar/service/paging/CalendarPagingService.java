@@ -17,7 +17,7 @@ public class CalendarPagingService {
 
     private final CalendarRepository calendarRepository;
 
-    //findAll(paging)
+    //calendar paging
     public Page<CalendarResponseDto> pageCalendars(int page, int size){
         if(page < 1 || size < 1){
             throw new CustomException(ErrorCode.PAGING_ERROR);
